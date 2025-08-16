@@ -5,10 +5,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 # Load the dataset
-df = pd.read_csv('dataset2.csv');
+
 
 #%%
 # display basic information about the dataset
+df = pd.read_csv('dataset2.csv');
 df.info()
 df.describe()
 
@@ -144,11 +145,113 @@ for col in col_x:
         #%%
         
         #%%
+        # We are Visualizing
         # Save the cleaned dataset to a new CSV file    
         df1= pd.read_csv('dataset2_cleaned.csv')
+        df = pd.read_csv('dataset2.csv');
         # comparing the size of the original and cleaned dataset
         print(f"Original dataset size: {df.shape[0]} rows, {df.shape[1]} columns")
         print(f"Cleaned dataset size: {df1.shape[0]} rows, {df1.shape[1]} columns")
         print(f"We removed {df.shape[0] - df1.shape[0]} rows from the original dataset.")
         
+    
         
+        #%%
+    #plotting the relevant numeriic columns of the cleaned dataset into histograms
+    # histogram of the months
+    col = df1.columns[1]
+    plt.figure(figsize=(6,4))
+    plt.hist(df1[col], bins=int(df1[col].max()) + 1, edgecolor='black')
+    plt.title(f"Histogram of {col}")
+    plt.xlabel(col)
+    plt.ylabel("Frequency")
+    plt.xticks(range(int(df1[col].min()), int(df1[col].max()) + 1, 1))
+    plt.show() 
+  
+    #%%
+    # histogram of the hours after sunset
+    col = df1.columns[2]
+    bins = np.arange(df1[col].min(), df1[col].max() + 2)  # +2 to include the last edge
+    plt.figure(figsize=(6,4))
+    plt.hist(df1[col], bins=bins, edgecolor='black')
+    plt.title(f"Histogram of {col}")
+    plt.xlabel(col)
+    plt.ylabel("Frequency")
+    plt.xticks(range(int(df1[col].min()), int(df1[col].max()) + 2, 1))
+    plt.show() 
+    #%%
+    # histogram of the bat landing number
+    col = df1.columns[3]
+    bins_n = 50
+    plt.figure(figsize=(6,4))
+    plt.hist(df1[col], bins=bins_n, edgecolor='black')
+    plt.title(f"Histogram of {col}")
+    plt.xlabel(col)
+    plt.ylabel("Frequency")
+    plt.xticks(range(1, 102, 5))
+    plt.show() 
+    
+    #%%
+    # histogram of the Food availability
+    col = df1.columns[4]
+    bins_n = 8
+    plt.figure(figsize=(6,4))
+    plt.hist(df1[col], bins=bins_n, edgecolor='black')
+    plt.title(f"Histogram of {col}")
+    plt.xlabel(col)
+    plt.ylabel("Frequency")
+    plt.xticks(range(int(df1[col].min()), int(df1[col].max()) + 1, 1))
+    plt.show() 
+    #%%
+    # histogram of the rat minutes
+    col = df1.columns[5]
+    bins_n = 2
+    plt.figure(figsize=(6,4))
+    plt.hist(df1[col], bins=bins_n, edgecolor='black')
+    plt.title(f"Histogram of {col}")
+    plt.xlabel(col)
+    plt.ylabel("Frequency")
+    plt.xticks(range(int(df1[col].min()), int(df1[col].max()) + 1, 1))
+    plt.show() 
+    
+    #%%
+    # histogram of the rat arrival number
+    col = df1.columns[6]
+    bins_n = 2
+    plt.figure(figsize=(6,4))
+    plt.hist(df1[col], bins=bins_n, edgecolor='black')
+    plt.title(f"Histogram of {col}")
+    plt.xlabel(col)
+    plt.ylabel("Frequency")
+    plt.xticks(range(int(df1[col].min()), int(df1[col].max()) + 1, 1))
+    plt.show() 
+    
+    #%%
+    # plotting some columns as line graphs as they are most relevant to the dataset in that form
+col1 = df.columns[3]
+col2 = df.columns[4]
+
+plt.figure(figsize=(8,5))
+plt.plot(df[col1], label=col1, marker='o')
+plt.plot(df[col2], label=col2, marker='s')
+
+plt.title(f"Line Graph of {col1} and {col2}")
+plt.xlabel("Index")
+plt.ylabel("Value")
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.show()
+#%%
+col1 = df.columns[3]
+col2 = df.columns[4]
+
+plt.figure(figsize=(8,5))
+plt.plot(df[col1][::40], label=col1, marker='o')
+plt.plot(df[col2][::40], label=col2, marker='s')
+
+plt.title(f"Line Graph of {col1} and {col2}")
+plt.xlabel("Index")
+plt.ylabel("Value")
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.show()

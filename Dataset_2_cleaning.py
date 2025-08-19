@@ -255,3 +255,60 @@ plt.ylabel("Value")
 plt.legend()
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.show()
+#%%
+col1 = df.columns[3]
+col2 = df.columns[4]
+
+x = np.arange(len(df))[::40]
+y1 = df[col1][::40]
+y2 = df[col2][::40]
+
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+
+ax1.plot(x, y1, color='tab:blue', marker='o', markersize=6,
+         linewidth=2, alpha=0.8, label=col1)
+ax1.set_xlabel("Index", fontsize=12)
+ax1.set_ylabel(col1, color='tab:blue', fontsize=12)
+ax1.tick_params(axis='y', labelcolor='tab:blue')
+ax1.set_xticks(np.linspace(0, len(df), 12, dtype=int))
+ax1.grid(True, linestyle='--', alpha=0.6)
+
+
+ax2 = ax1.twinx()
+ax2.plot(x, y2, color='tab:red', marker='s', markersize=6,
+         linewidth=2, alpha=0.8, label=col2)
+ax2.set_ylabel(col2, color='tab:red', fontsize=12)
+ax2.tick_params(axis='y', labelcolor='tab:red')
+
+fig.suptitle(f"Line Graph of {col1} and {col2}", fontsize=14, y=1.02)
+
+fig.tight_layout()
+plt.show()
+
+# %%
+# plot the correlation matrix
+numeric_df = df1.select_dtypes(include=[np.number])
+
+correlation_matrix = numeric_df.corr()
+
+plt.figure(figsize=(10, 8))
+
+im = plt.imshow(correlation_matrix, cmap='coolwarm', interpolation='nearest')
+
+cbar = plt.colorbar(im, fraction=0.046, pad=0.04)
+cbar.ax.tick_params(labelsize=10)
+
+ticks = np.arange(len(correlation_matrix.columns))
+plt.xticks(ticks, correlation_matrix.columns, rotation=90)
+plt.yticks(ticks, correlation_matrix.columns)
+
+for i in range(len(correlation_matrix.columns)):
+    for j in range(len(correlation_matrix.columns)):
+        plt.text(j, i, f"{correlation_matrix.iloc[i, j]:.2f}",
+                 ha='center', va='center', color='black', fontsize=8)
+
+plt.title("Correlation Matrix of Cleaned Dataset", fontsize=14)
+plt.tight_layout()
+plt.show()
+#%%

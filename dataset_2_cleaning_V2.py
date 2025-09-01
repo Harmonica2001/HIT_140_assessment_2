@@ -234,7 +234,7 @@ for col in col_x:
         print("-" * 40)
 # %%
 # Save the cleaned dataset to a new CSV file    
-df_cleaned.to_csv('dataset2_cleaned.csv', index=False)
+# df_cleaned.to_csv('dataset2_cleaned.csv', index=False)
 
 #%%
 df_cleaned= pd.read_csv('dataset2_cleaned.csv')
@@ -402,3 +402,5 @@ fig.suptitle(f"Line Graph of {col1} and {col2}", fontsize=14, y=1.02)
 fig.tight_layout()
 plt.show()
 
+
+# %%

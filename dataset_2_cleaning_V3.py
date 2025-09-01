@@ -192,7 +192,7 @@ fig.show()
 
 df_cleaned = df
 
-col_x = df_cleaned.select_dtypes(include=[np.number]).columns
+col_x = df_cleaned.select_dtypes(include=[np.number]).iloc[:, :-2].columns
 
 for col in col_x:
     Q1 = df_cleaned[col].quantile(0.25)
@@ -215,7 +215,7 @@ for col in col_x:
     
     #%% removes values that are outside the outliers 
     
-    for col in df_cleaned.select_dtypes(include='number').columns:
+    for col in df_cleaned.select_dtypes(include=[np.number]).iloc[:, :-2].columns:
         Q1 = df_cleaned[col].quantile(0.25)
         Q3 = df_cleaned[col].quantile(0.75)
         IQR = Q3 - Q1
@@ -234,11 +234,11 @@ for col in col_x:
         print("-" * 40)
 # %%
 # Save the cleaned dataset to a new CSV file    
-df_cleaned.to_csv('dataset2_cleaned.csv', index=False)
+df_cleaned.to_csv('dataset2_cleaned_V2.csv', index=False)
 
 #%%
-df_cleaned= pd.read_csv('dataset2_cleaned.csv')
-df = pd.read_csv('dataset2.csv');
+df_cleaned= pd.read_csv('dataset2_cleaned_V2.csv')
+df = pd.read_csv('dataset2.csv')
 # comparing the size of the original and cleaned dataset
 print(f"Original dataset size: {df.shape[0]} rows, {df.shape[1]} columns")
 print(f"Cleaned dataset size: {df_cleaned.shape[0]} rows, {df_cleaned.shape[1]} columns")

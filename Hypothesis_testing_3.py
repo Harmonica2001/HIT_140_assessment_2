@@ -11,7 +11,7 @@ df1 = df
 #%%
 
 # Create a new column based on 'bat_landing_to_food' threshold
-df1['above_seconds'] = (df['bat_landing_to_food'] > 3).astype(int)
+df1['above_seconds'] = (df['bat_landing_to_food'] > 5).astype(int)
 #%%
 # Count how many 1s
 successes = df1['above_seconds'].sum()
@@ -33,3 +33,5 @@ if p_val < 0.05:
 else:
     print("\t We accept the null hypothesis.")
     
+
+# %%

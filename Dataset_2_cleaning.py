@@ -141,7 +141,7 @@ for col in col_x:
         
         #%%
         # Save the cleaned dataset to a new CSV file    
-        df1.to_csv('dataset2_cleaned.csv', index=False)
+        # df1.to_csv('dataset2_cleaned.csv', index=False)
         #%%
         
         #%%

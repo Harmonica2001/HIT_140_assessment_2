@@ -30,7 +30,6 @@ df2_4 = df2[(df2['month'] == 4)]
 df2_5 = df2[(df2['month'] == 5)]
 df2_6 = df2[(df2['month'] == 6)]
 
-
 lengths = {
     '0': len(df2_0),
     '1': len(df2_1),
@@ -41,8 +40,6 @@ lengths = {
     '6': len(df2_6)
 
 }
-
-
 #%%
 # Plotting the lengths
 
@@ -410,3 +407,4 @@ plt.grid()
 # Adjust layout to prevent overlap
 plt.tight_layout()
 plt.show()
+# %%

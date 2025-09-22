@@ -94,98 +94,98 @@ plt.show()
 
 #%%
 # List of DataFrames
-dataframes = [df2_0, df2_1, df2_2, df2_3, df2_4, df2_5]
-dataset_split_parameter = ['rat_arrival_number', 'rat_minutes']
-test_column = ['bat_landing_number']
+# dataframes = [df2_0, df2_1, df2_2, df2_3, df2_4, df2_5]
+# dataset_split_parameter = ['rat_arrival_number', 'rat_minutes']
+# test_column = ['bat_landing_number']
                
-               #, 'food_availability','hours_after_sunset']
-# Loop through each DataFrame
-# Loop through each DataFrame
-# Initialize an empty list to store p-values
-p_values = []
+#                #, 'food_availability','hours_after_sunset']
+# # Loop through each DataFrame
+# # Loop through each DataFrame
+# # Initialize an empty list to store p-values
+# p_values = []
 
-# Loop through each DataFrame
-for df in dataframes:
-    for x in dataset_split_parameter:
-        for y in test_column:
-            # Converts the x column to integers
-            df[x] = df[x].astype(int)
+# # Loop through each DataFrame
+# for df in dataframes:
+#     for x in dataset_split_parameter:
+#         for y in test_column:
+#             # Converts the x column to integers
+#             df[x] = df[x].astype(int)
 
-            # Creates two dataframes as per the two sections
-            df_above_zero = df[df[x] > 0]
-            df_zero = df[df[x] == 0]
+#             # Creates two dataframes as per the two sections
+#             df_above_zero = df[df[x] > 0]
+#             df_zero = df[df[x] == 0]
 
-            # Perform Z-test if both groups have samples
-            if len(df_above_zero) > 0 and len(df_zero) > 0:
-                z_stats, p_val = ztest(df_above_zero[y], df_zero[y], alternative='two-sided')
+#             # Perform Z-test if both groups have samples
+#             if len(df_above_zero) > 0 and len(df_zero) > 0:
+#                 z_stats, p_val = ztest(df_above_zero[y], df_zero[y], alternative='two-sided')
 
-                # Append the p-value to the list
-                p_values.append(p_val)
+#                 # Append the p-value to the list
+#                 p_values.append(p_val)
 
-                # Determine whether to accept or reject the null hypothesis
-                conclusion = "We reject the null hypothesis." if p_val < 0.05 else "We accept the null hypothesis."
+#                 # Determine whether to accept or reject the null hypothesis
+#                 conclusion = "We reject the null hypothesis." if p_val < 0.05 else "We accept the null hypothesis."
 
-                # Print Z-test statistic, p-value, and conclusion
-                # print(f"Z-statistic: {z_stats:.2f}, p-value: {p_val:.10f}, Conclusion: {conclusion}")
+#                 # Print Z-test statistic, p-value, and conclusion
+#                 # print(f"Z-statistic: {z_stats:.2f}, p-value: {p_val:.10f}, Conclusion: {conclusion}")
 
-# Optionally, print the list of p-values after the loop
-# print("\nList of p-values:", p_values)
+# # Optionally, print the list of p-values after the loop
+# # print("\nList of p-values:", p_values)
                 
-# Assuming p_values contains at least 12 values
-# Example p_values for demonstration
-# p_values = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11, 0.12]
+# # Assuming p_values contains at least 12 values
+# # Example p_values for demonstration
+# # p_values = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11, 0.12]
 
-# plt.figure(figsize=(10, 6))
+# # plt.figure(figsize=(10, 6))
 
-# # Plot the first 6 p-values in red
+# # # Plot the first 6 p-values in red
+# # plt.scatter(range(6), p_values[:6], color='red', marker='o', label='rat_arrival_number')
+
+# # # Plot the last 6 p-values in blue
+# # plt.scatter(range(6, 12), p_values[6:12], color='blue', marker='o', label='rat_minutes')
+
+# # # Add a horizontal line for the significance level
+# # plt.axhline(y=0.05, color='red', linestyle='--', label='Significance Level (0.05)')
+
+# # # Title and labels
+# # plt.title('Scatter Plot of p-values from Z-tests')
+# # plt.xlabel('Test Index')
+# # plt.ylabel('p-value')
+# # plt.xticks(range(12))  # Set x-ticks to match the number of p-values
+# # plt.ylim(0, 1)  # Set y-axis limits
+# # plt.legend()
+# # plt.grid()
+# # plt.show()
+
+# # Create a figure with two subplots
+# plt.figure(figsize=(10, 12))
+
+# # First subplot for the first 6 p-values
+# plt.subplot(2, 1, 1)  # 2 rows, 1 column, 1st subplot
 # plt.scatter(range(6), p_values[:6], color='red', marker='o', label='rat_arrival_number')
-
-# # Plot the last 6 p-values in blue
-# plt.scatter(range(6, 12), p_values[6:12], color='blue', marker='o', label='rat_minutes')
-
-# # Add a horizontal line for the significance level
 # plt.axhline(y=0.05, color='red', linestyle='--', label='Significance Level (0.05)')
-
-# # Title and labels
-# plt.title('Scatter Plot of p-values from Z-tests')
+# plt.title('Scatter Plot of First 6 p-values from Z-tests for Bat_landing_Number')
 # plt.xlabel('Test Index')
 # plt.ylabel('p-value')
-# plt.xticks(range(12))  # Set x-ticks to match the number of p-values
+# plt.xticks(range(6))  # Set x-ticks to match the number of p-values
 # plt.ylim(0, 1)  # Set y-axis limits
 # plt.legend()
 # plt.grid()
+
+# # Second subplot for the last 6 p-values
+# plt.subplot(2, 1, 2)  # 2 rows, 1 column, 2nd subplot
+# plt.scatter(range(6), p_values[6:12], color='blue', marker='o', label='rat_minutes')
+# plt.axhline(y=0.05, color='red', linestyle='--', label='Significance Level (0.05)')
+# plt.title('Scatter Plot of Last 6 p-values from Z-tests for Bat_landing_Number')
+# plt.xlabel('Test Index')
+# plt.ylabel('p-value')
+# plt.xticks(range(6))  # Set x-ticks to match the number of p-values
+# plt.ylim(0, 1)  # Set y-axis limits
+# plt.legend()
+# plt.grid()
+
+# # Adjust layout to prevent overlap
+# plt.tight_layout()
 # plt.show()
-
-# Create a figure with two subplots
-plt.figure(figsize=(10, 12))
-
-# First subplot for the first 6 p-values
-plt.subplot(2, 1, 1)  # 2 rows, 1 column, 1st subplot
-plt.scatter(range(6), p_values[:6], color='red', marker='o', label='rat_arrival_number')
-plt.axhline(y=0.05, color='red', linestyle='--', label='Significance Level (0.05)')
-plt.title('Scatter Plot of First 6 p-values from Z-tests for Bat_landing_Number')
-plt.xlabel('Test Index')
-plt.ylabel('p-value')
-plt.xticks(range(6))  # Set x-ticks to match the number of p-values
-plt.ylim(0, 1)  # Set y-axis limits
-plt.legend()
-plt.grid()
-
-# Second subplot for the last 6 p-values
-plt.subplot(2, 1, 2)  # 2 rows, 1 column, 2nd subplot
-plt.scatter(range(6), p_values[6:12], color='blue', marker='o', label='rat_minutes')
-plt.axhline(y=0.05, color='red', linestyle='--', label='Significance Level (0.05)')
-plt.title('Scatter Plot of Last 6 p-values from Z-tests for Bat_landing_Number')
-plt.xlabel('Test Index')
-plt.ylabel('p-value')
-plt.xticks(range(6))  # Set x-ticks to match the number of p-values
-plt.ylim(0, 1)  # Set y-axis limits
-plt.legend()
-plt.grid()
-
-# Adjust layout to prevent overlap
-plt.tight_layout()
-plt.show()
 
 # %%
 dataframes = [df2_0, df2_1, df2_2, df2_3, df2_4, df2_5]

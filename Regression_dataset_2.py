@@ -192,7 +192,7 @@ print("RMSE: ", rmse)
 print("RMSE (Normalised): ", rmse_norm)
 print("R^2: ", r_2)
 # %%
-df_slice = df.iloc[:, 0:5]
+df_slice = df.iloc[:, 0:8]
 # select numeric columns only
 numeric_df = df_slice.select_dtypes(include=[np.number])
 

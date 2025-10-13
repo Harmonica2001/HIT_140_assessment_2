@@ -47,7 +47,6 @@ lengths = {
     '6': len(df2_6)
 
 }
-#%%
 def p_value_grapher(dataframes,dataset_split_parameter,test_column):
     
                    
@@ -159,16 +158,12 @@ def p_value_grapher(dataframes,dataset_split_parameter,test_column):
     # plt.tight_layout()
     # plt.show()
     return rat_arrival_number_p_value_list, rat_minutes_p_value_list
-
-
-
-#%%
 a,b = p_value_grapher([df2_0, df2_1, df2_2, df2_3, df2_4, df2_5],['rat_arrival_number', 'rat_minutes'],['bat_landing_number'])
 c,d = p_value_grapher([df2_0, df2_1, df2_2, df2_3, df2_4, df2_5],['rat_arrival_number', 'rat_minutes'],['food_availability'])
 e,f = p_value_grapher([df2_0, df2_1, df2_2, df2_3, df2_4, df2_5],['rat_arrival_number', 'rat_minutes'],['hours_after_sunset'])
 #%%
 # Create a line of best fit and plot
-def plot_with_best_fit(df_a, df_b):
+def plot_with_best_fit(df_a, df_b,col_name):
     # Create arrays for x values (0 through 5 for 6 data points)
     x_values = np.arange(len(df_a))
 
@@ -177,54 +172,58 @@ def plot_with_best_fit(df_a, df_b):
     y_b = df_b
 
     # Calculate line of best fit
-    coeffs_a = np.polyfit(x_values, y_a, 1)
-    best_fit_line_a = np.polyval(coeffs_a, x_values)
+    coeffs_a, intercept_a = np.polyfit(x_values, y_a, 1)
+    best_fit_line_a = coeffs_a * x_values + intercept_a
 
-    coeffs_b = np.polyfit(x_values, y_b, 1)
-    best_fit_line_b = np.polyval(coeffs_b, x_values)
+    coeffs_b, intercept_b = np.polyfit(x_values, y_b, 1)
+    best_fit_line_b = coeffs_b * x_values + intercept_b
 
     # Plot
     plt.figure(figsize=(12, 6))
 
-    # Plot for rat_arrival_number
+# # Shading for x values below and above 2
+
     plt.subplot(1, 2, 1)  # 1 row, 2 columns, first subplot
     plt.scatter(x_values, y_a, color='red', label='Rat Arrival Number p-values', marker='o')
-    plt.plot(x_values, best_fit_line_a, color='blue', linestyle='--', label='Line of Best Fit')
-    plt.axhline(y=0.05, color='green', linestyle='--', label='Significance Level (0.05)')
-    plt.title('Rat Arrival Number P-values with Best Fit')
+    plt.plot(x_values, best_fit_line_a, color='black', linestyle='--', label='Line of Best Fit')
+    plt.title(f'Rat Arrival Number P-values with Best Fit for: {col_name}')
     plt.xlabel('Test Index')
     plt.ylabel('p-value')
     plt.ylim(0, 1)
     plt.xticks(x_values)
     plt.legend()
     plt.grid()
-
+    plt.axvspan(x_values[0], 2, color='lightblue', alpha=0.3, label='x < 2 region')
+    plt.axvspan(2, x_values[-1], color='moccasin', alpha=0.3, label='x ≥ 2 region')
+    # Add the equation as text on the plot
+    equation_a = f"y = {coeffs_a:.2f}x + {intercept_a:.2f}"
+    plt.text(0.5, 0.5, equation_a, fontsize=12, color='black')
     # Plot for rat_minutes
     plt.subplot(1, 2, 2)  # 1 row, 2 columns, second subplot
     plt.scatter(x_values, y_b, color='blue', label='Rat Minutes p-values', marker='o')
-    plt.plot(x_values, best_fit_line_b, color='red', linestyle='--', label='Line of Best Fit')
-    plt.axhline(y=0.05, color='green', linestyle='--', label='Significance Level (0.05)')
-    plt.title('Rat Minutes P-values with Best Fit')
+    plt.plot(x_values, best_fit_line_b, color='black', linestyle='--', label='Line of Best Fit')
+    plt.title(f'Rat Minutes P-values with Line of Best Fit for: {col_name}')
     plt.xlabel('Test Index')
     plt.ylabel('p-value')
     plt.ylim(0, 1)
+    equation_b = f"y = {coeffs_b:.2f}x + {intercept_b:.2f}"
+    plt.text(0.5, 0.5, equation_b, fontsize=12, color='black')
     plt.xticks(x_values)
     plt.legend()
     plt.grid()
-
+    plt.axvspan(x_values[0], 2, color='lightblue', alpha=0.3, label='x < 2 region')
+    plt.axvspan(2, x_values[-1], color='moccasin', alpha=0.3, label='x ≥ 2 region')
     plt.tight_layout()
     plt.show()
 
 
 #%%
 # Call the plotting function
-plot_with_best_fit(a, b)
-plot_with_best_fit(c, d)
-plot_with_best_fit(e, f)
+plot_with_best_fit(a, b,'bat_landing_number')
+plot_with_best_fit(c, d,'food_availability')
+plot_with_best_fit(e, f,'hours_after_sunset')
 #%%
 p1 = pd.DataFrame(p_value_grapher([df2_0, df2_1, df2_2, df2_3, df2_4, df2_5],['rat_arrival_number', 'rat_minutes'],['bat_landing_number']))
-
-#%%
 p2 = pd.DataFrame(p_value_grapher([df2_0, df2_1, df2_2, df2_3, df2_4, df2_5],['rat_arrival_number', 'rat_minutes'],['food_availability']))
 p3 = pd.DataFrame(p_value_grapher([df2_0, df2_1, df2_2, df2_3, df2_4, df2_5],['rat_arrival_number', 'rat_minutes'],['hours_after_sunset']))
 

@@ -43,7 +43,7 @@ Extra:
 #%%
 # scatter plot
 
-df5 = pd.read_csv("Datasets/dataset1.csv")
+df5 = pd.read_csv("C:\Personal\Masters\Masters_work\Study\Y1_S1\HIT140\Assessment_2\HIT_140_Assessment_2_200925\HIT_140_assessment_2\Datasets/dataset1.csv")
 plt.scatter(df5["month"], df5["season"], c="C0", alpha=0.8, edgecolor="k")
 plt.xlabel("Month")
 plt.ylabel("Season")
